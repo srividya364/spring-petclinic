@@ -14,7 +14,7 @@ pipeline {
         }
         stage ('build and scan') {
             steps {
-             withCredentials([string(credentialsId: 'SONAR', variable: 'SONAR_TOKEN')])
+             withCredentials([string(credentialsId: 'SONAR', variable: 'SONAR_TOKEN')]){
                 withSonarQubeEnv('sonar') {
                 sh '''mvn ${params.goals} sonar:sonar \
                       -Dsonar.projectKey=srividya364_spring-petclinic \
@@ -22,6 +22,7 @@ pipeline {
                       -Dsonar.host.url=https://sonarcloud.io/ \
                       -Dsonar.login=$SONAR_TOKEN'''
                  
+               }
             }
         }  
     }  
